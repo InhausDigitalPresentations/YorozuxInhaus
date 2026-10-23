@@ -14,6 +14,7 @@ Notes:
 ## Presenting
 - On the first screen, click **Begin with sound**. Browsers only allow audio after a click.
 - Move forward with → / Space / click / scroll, and back with ←. Press **F** for full screen and **M** for sound on/off.
+- **Index:** click **Index** (top right) or press **I** to open the chapter menu, then click any slide to jump to it. Clicking the chapter name at the bottom left opens it at the current chapter. **Esc** closes it.
 - Some slides reveal lines one at a time. Keep pressing → and the slide changes once all its lines are shown.
 - Use `#12` at the end of the URL to jump to slide 12. Slides 34 and 35 carry the retainer (AED 26,000 per month) and the performance-marketing scope.
 - The clock in the top right counts the time spent. The closing slide uses it: "You spent N minutes with Yorozu today."

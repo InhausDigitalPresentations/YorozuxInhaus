@@ -257,6 +257,47 @@ body.sound-on .snd i:nth-child(3){animation-delay:-.8s}
 .gate .alt:hover{background:none;color:var(--paper);opacity:1}
 .gate .hint{font-size:var(--t-label);letter-spacing:.28em;text-transform:uppercase;opacity:.4;margin-top:10px}
 
+/* ---------- index menu ---------- */
+.ui .ix-btn{display:inline-flex;align-items:center;gap:12px}
+.ix-btn .bars{display:inline-flex;flex-direction:column;gap:4px;width:16px}
+.ix-btn .bars i{display:block;height:1px;background:currentColor;transition:transform .5s var(--ease),width .5s var(--ease)}
+.ix-btn .bars i:nth-child(2){width:62%}
+.ix-btn:hover .bars i:nth-child(2){width:100%}
+.ui.bl button{padding:6px 0}
+.ui.bl button:hover{opacity:1}
+.ui button:focus-visible{outline:1px solid currentColor;outline-offset:4px}
+.ix{position:fixed;inset:0;z-index:55;visibility:hidden;transition:visibility 0s linear .8s}
+.ix.open{visibility:visible;transition:none}
+.ix-veil{position:absolute;inset:0;background:rgba(10,8,6,.55);opacity:0;transition:opacity .8s var(--ease)}
+.ix.open .ix-veil{opacity:1}
+.ix-panel{position:absolute;top:0;bottom:0;right:0;width:min(460px,100vw);background:#14110e;color:var(--paper);border-left:1px solid rgba(235,229,219,.12);
+  transform:translateX(100%);transition:transform .8s var(--ease);display:flex;flex-direction:column}
+.ix.open .ix-panel{transform:none}
+.ix-head{display:flex;justify-content:space-between;align-items:center;padding:calc(var(--pad)*.42 + 6px) clamp(24px,2.6vw,40px) 18px;
+  font-size:var(--t-label);letter-spacing:.3em;text-transform:uppercase;font-weight:400}
+.ix-head button{background:none;border:0;color:inherit;font:inherit;letter-spacing:inherit;text-transform:inherit;cursor:pointer;padding:6px 0;opacity:.7}
+.ix-head button:hover{opacity:1}
+.ix-list{flex:1;overflow-y:auto;padding:6px clamp(24px,2.6vw,40px) 24px;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:rgba(235,229,219,.25) transparent}
+.ix-sec{margin:0;padding:22px 0 8px;border-top:1px solid rgba(235,229,219,.12)}
+.ix-sec:first-child{border-top:0;padding-top:8px}
+.ix-sec>button{display:flex;width:100%;justify-content:space-between;align-items:baseline;background:none;border:0;color:inherit;cursor:pointer;padding:4px 0 10px;text-align:left;
+  font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-weight:300;font-size:clamp(22px,1.7vw,28px);letter-spacing:0}
+.ix-sec>button span{font-family:'Jost',system-ui,sans-serif;font-style:normal;font-size:var(--t-label);letter-spacing:.24em;opacity:.45;font-weight:400}
+.ix-sec ol{list-style:none;margin:0;padding:0}
+.ix-sec li button{display:grid;grid-template-columns:34px 1fr;gap:10px;width:100%;background:none;border:0;color:inherit;cursor:pointer;text-align:left;
+  padding:7px 0;font:inherit;font-size:var(--t-small);line-height:1.4;font-weight:300;opacity:.62;transition:opacity .3s}
+.ix-sec li button b{font-weight:400;font-size:var(--t-label);letter-spacing:.14em;font-variant-numeric:tabular-nums;opacity:.7;padding-top:.25em}
+.ix-sec li button span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ix-sec li button:hover,.ix-sec li button:focus-visible{opacity:1;outline:0}
+.ix-sec li button[aria-current="true"]{opacity:1}
+.ix-sec li button[aria-current="true"] b::before{content:"";display:inline-block;width:14px;height:1px;background:currentColor;vertical-align:middle;margin:-2px 6px 0 -20px}
+.ix-sec>button:hover{color:#fff}
+.ix-foot{padding:16px clamp(24px,2.6vw,40px) calc(var(--pad)*.42 + 10px);border-top:1px solid rgba(235,229,219,.12);
+  font-size:var(--t-label);letter-spacing:.22em;text-transform:uppercase;opacity:.42;font-weight:400;line-height:2}
+.ix-foot kbd{font:inherit;border:1px solid rgba(235,229,219,.35);padding:1px 6px 0;margin-right:6px}
+@media (pointer:coarse){.ix-foot{display:none}}
+@media (prefers-reduced-motion:reduce){.ix-panel,.ix-veil{transition:none}}
+
 /* ---------- shorter desktop screens ---------- */
 @media (max-height:760px) and (min-width:901px){
   :root{--t-h0:clamp(36px,4.6vw,80px);--t-h1:clamp(28px,3.1vw,52px);--gap:12px}
@@ -308,10 +349,18 @@ body.sound-on .snd i:nth-child(3){animation-delay:-.8s}
 </div>
 
 <div class="ui tl">Yorozu &nbsp;×&nbsp; Inhaus</div>
-<div class="ui tr"><span class="clock" id="clock">00:00</span><button id="soundBtn" aria-label="Toggle sound"><span class="snd"><i></i><i></i><i></i></span><span id="soundLbl">Sound off</span></button></div>
-<div class="ui bl" id="section"></div>
+<div class="ui tr"><button class="ix-btn" id="ixBtn" aria-label="Open the index" aria-controls="ix" aria-expanded="false"><span class="bars"><i></i><i></i></span>Index</button><span class="clock" id="clock">00:00</span><button id="soundBtn" aria-label="Toggle sound"><span class="snd"><i></i><i></i><i></i></span><span id="soundLbl">Sound off</span></button></div>
+<div class="ui bl"><button id="section" aria-label="Open the index at this chapter"></button></div>
 <div class="ui br" id="count"></div>
 <div class="progress" id="progress"></div>
+<div class="ix" id="ix" aria-hidden="true">
+  <div class="ix-veil" id="ixVeil"></div>
+  <nav class="ix-panel" aria-label="Presentation index">
+    <div class="ix-head"><span>Index</span><button id="ixClose" aria-label="Close the index">Close</button></div>
+    <div class="ix-list" id="ixList"></div>
+    <div class="ix-foot"><kbd>I</kbd>Index &nbsp; <kbd>←</kbd><kbd>→</kbd>Move &nbsp; <kbd>F</kbd>Full screen &nbsp; <kbd>M</kbd>Sound</div>
+  </nav>
+</div>
 <div class="grain"></div>
 
 <main class="deck" id="deck">
@@ -1029,6 +1078,8 @@ const LINKS = [
   document.addEventListener('keydown', e => {
     if(e.metaKey || e.ctrlKey || e.altKey) return;
     const k = e.key;
+    if(ixOpen){ if(k === 'Escape' || k === 'i' || k === 'I'){ e.preventDefault(); closeIx(); } return; }
+    if(started && (k === 'i' || k === 'I')){ e.preventDefault(); openIx(); return; }
     if(!started && (k === 'Enter' || k === ' ')){ e.preventDefault(); start(true); return; }
     if(['ArrowRight','ArrowDown','PageDown',' ','Enter'].includes(k)){ e.preventDefault(); next(); }
     else if(['ArrowLeft','ArrowUp','PageUp','Backspace'].includes(k)){ e.preventDefault(); prev(); }
@@ -1039,7 +1090,7 @@ const LINKS = [
   });
   let wheelAcc = 0;
   window.addEventListener('wheel', e => {
-    if(!started) return;
+    if(!started || ixOpen) return;
     e.preventDefault();
     if(lock) return;
     wheelAcc += e.deltaY;
@@ -1051,7 +1102,7 @@ const LINKS = [
   let tx = null, ty = null;
   window.addEventListener('touchstart', e => { tx = e.touches[0].clientX; ty = e.touches[0].clientY; }, { passive:true });
   window.addEventListener('touchend', e => {
-    if(tx === null || !started) return;
+    if(tx === null || !started || ixOpen){ tx = ty = null; return; }
     const dx = e.changedTouches[0].clientX - tx, dy = e.changedTouches[0].clientY - ty;
     const frame = e.target.closest('.frame');
     const scrollable = frame && frame.scrollHeight > frame.clientHeight + 4;
@@ -1078,6 +1129,62 @@ const LINKS = [
     const ms = Date.now() - t0, m = Math.max(1, Math.round(ms/60000));
     $('spent').textContent = 'You spent ' + (m === 1 ? 'one minute' : m + ' minutes') + ' with Yorozu today';
   }
+
+  // ---------- index menu ----------
+  let ixOpen = false;
+  const ix = $('ix'), ixList = $('ixList'), ixBtn = $('ixBtn');
+  function titleOf(s){
+    const clean = t => (t || '').replace(/\s+/g, ' ').trim();
+    const kick = s.querySelector('.kicker');
+    let t = kick ? clean(kick.textContent).replace(/^\d+\s*[—–-]\s*/, '') : '';
+    if(!t){
+      const h = s.querySelector('.word, .lock, .h0, .h1, .h2');
+      t = h ? clean(h.textContent) : '';
+      if(t && t === t.toUpperCase()) t = t.charAt(0) + t.slice(1).toLowerCase();
+    }
+    return t || ('Slide ' + (slides.indexOf(s) + 1));
+  }
+  (function buildIx(){
+    const groups = [];
+    slides.forEach((s, i) => {
+      const name = s.dataset.section || '';
+      let g = groups[groups.length - 1];
+      if(!g || g.name !== name){ g = { name, items: [] }; groups.push(g); }
+      g.items.push(i);
+    });
+    const p2 = n => String(n).padStart(2, '0');
+    ixList.innerHTML = groups.map(g => `
+      <section class="ix-sec" data-sec="${g.name}">
+        <button type="button" data-go="${g.items[0]}">${g.name}<span>${p2(g.items[0] + 1)}${g.items.length > 1 ? '–' + p2(g.items[g.items.length - 1] + 1) : ''}</span></button>
+        <ol>${g.items.map(i => `<li><button type="button" data-go="${i}"><b>${p2(i + 1)}</b><span>${titleOf(slides[i]).replace(/</g, '&lt;')}</span></button></li>`).join('')}</ol>
+      </section>`).join('');
+  })();
+  function markIx(){
+    ixList.querySelectorAll('li button').forEach(b => b.setAttribute('aria-current', +b.dataset.go === cur ? 'true' : 'false'));
+  }
+  function openIx(focusSection){
+    if(!started || ixOpen) return;
+    ixOpen = true; markIx();
+    ix.classList.add('open'); ix.setAttribute('aria-hidden', 'false'); ixBtn.setAttribute('aria-expanded', 'true');
+    const here = ixList.querySelector('li button[aria-current="true"]');
+    if(here){ here.scrollIntoView({ block: focusSection ? 'start' : 'center' }); here.focus({ preventScroll: true }); }
+  }
+  function closeIx(){
+    if(!ixOpen) return;
+    ixOpen = false;
+    ix.classList.remove('open'); ix.setAttribute('aria-hidden', 'true'); ixBtn.setAttribute('aria-expanded', 'false');
+    ixBtn.focus({ preventScroll: true });
+  }
+  ixBtn.addEventListener('click', e => { e.stopPropagation(); ixOpen ? closeIx() : openIx(); });
+  $('section').addEventListener('click', e => { e.stopPropagation(); openIx(true); });
+  $('ixClose').addEventListener('click', closeIx);
+  $('ixVeil').addEventListener('click', closeIx);
+  ixList.addEventListener('click', e => {
+    const b = e.target.closest('[data-go]'); if(!b) return;
+    const i = +b.dataset.go;
+    closeIx();
+    if(i !== cur) go(i);
+  });
 
   // ---------- start ----------
   function start(withSound){
