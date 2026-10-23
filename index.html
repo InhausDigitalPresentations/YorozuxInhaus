@@ -1,0 +1,1099 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>YOROZU — Time is Rare · INHAUS</title>
+<meta name="description" content="A social &amp; digital proposal for Yorozu, Abu Dhabi. By INHAUS.">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#14110e">
+<meta property="og:title" content="YOROZU — Time is Rare">
+<meta property="og:description" content="A social &amp; digital proposal for Yorozu, Abu Dhabi. By INHAUS.">
+<meta property="og:image" content="assets/img/knife-tuna.jpg">
+<link rel="preload" href="assets/fonts/jost-latin-300-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/cormorant-garamond-latin-300-italic.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+@font-face{font-family:'Jost';font-weight:300;font-style:normal;font-display:swap;src:url(assets/fonts/jost-latin-300-normal.woff2) format('woff2')}
+@font-face{font-family:'Jost';font-weight:400;font-style:normal;font-display:swap;src:url(assets/fonts/jost-latin-400-normal.woff2) format('woff2')}
+@font-face{font-family:'Jost';font-weight:500;font-style:normal;font-display:swap;src:url(assets/fonts/jost-latin-500-normal.woff2) format('woff2')}
+@font-face{font-family:'Jost';font-weight:300;font-style:normal;font-display:swap;src:url(assets/fonts/jost-latin-ext-300-normal.woff2) format('woff2');unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:'Jost';font-weight:400;font-style:normal;font-display:swap;src:url(assets/fonts/jost-latin-ext-400-normal.woff2) format('woff2');unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:'Cormorant Garamond';font-weight:300;font-style:normal;font-display:swap;src:url(assets/fonts/cormorant-garamond-latin-300-normal.woff2) format('woff2')}
+@font-face{font-family:'Cormorant Garamond';font-weight:400;font-style:normal;font-display:swap;src:url(assets/fonts/cormorant-garamond-latin-400-normal.woff2) format('woff2')}
+@font-face{font-family:'Cormorant Garamond';font-weight:300;font-style:italic;font-display:swap;src:url(assets/fonts/cormorant-garamond-latin-300-italic.woff2) format('woff2')}
+@font-face{font-family:'Cormorant Garamond';font-weight:400;font-style:italic;font-display:swap;src:url(assets/fonts/cormorant-garamond-latin-400-italic.woff2) format('woff2')}
+:root{
+  --ink:#14110e; --paper:#ebe5db; --paper2:#e2dacd;
+  --umber:#33201a; --clay:#8c4b3b; --olive:#5f6652;
+  --pad:clamp(24px,5.4vw,100px);
+  --ease:cubic-bezier(.2,.7,.2,1);
+  /* type scale */
+  --t-kicker:clamp(11px,.72vw,12.5px);
+  --t-label:clamp(10px,.6vw,11.5px);
+  --t-body:clamp(15px,1.12vw,21px);
+  --t-small:clamp(13px,.9vw,16px);
+  --t-h3:clamp(17px,1.32vw,24px);
+  --t-h2:clamp(22px,2.2vw,38px);
+  --t-h1:clamp(30px,3.6vw,62px);
+  --t-h0:clamp(40px,5.4vw,96px);
+  --gap:clamp(14px,1.5vw,24px);
+}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:var(--ink);color:var(--paper);overflow:hidden}
+body{font-family:'Jost',system-ui,sans-serif;font-weight:300;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+a{color:inherit}
+img,video{display:block}
+
+/* ---------- deck ---------- */
+.deck{position:fixed;inset:0}
+.slide{position:absolute;inset:0;overflow:hidden;opacity:0;visibility:hidden;transition:visibility 0s linear 1.6s;background:var(--ink)}
+.slide.active{opacity:1;visibility:visible;z-index:2;transition:opacity 1.6s var(--ease),visibility 0s}
+/* the slide we are leaving stays fully opaque underneath until the new one has faded in over it */
+.slide.leaving{opacity:1;visibility:visible;z-index:1;transition:none}
+.slide.paper{background:var(--paper);color:var(--ink)}
+.slide.umber{background:var(--umber)}
+.slide.olive{background:#2a2c24}
+
+/* backgrounds + motion */
+.bg{position:absolute;inset:0;overflow:hidden;opacity:1;transition:opacity 2.2s var(--ease)}
+.bg img,.bg video{width:100%;height:100%;object-fit:cover;transform:scale(1.04);will-change:transform}
+.bg video{transform:none}
+.bg.dim::after,.bg.dimmer::after,.bg.low::after,.bg.left::after,.bg.text::after{content:"";position:absolute;inset:0}
+.bg.dim::after{background:rgba(10,8,6,.42)}
+.bg.dimmer::after{background:rgba(10,8,6,.62)}
+.bg.low::after{background:linear-gradient(to top,rgba(10,8,6,.85) 0%,rgba(10,8,6,.3) 55%,rgba(10,8,6,.2) 100%)}
+.bg.left::after{background:linear-gradient(to right,rgba(10,8,6,.88) 0%,rgba(10,8,6,.6) 48%,rgba(10,8,6,.25) 100%)}
+.bg.text::after{background:linear-gradient(to right,rgba(10,8,6,.94) 0%,rgba(10,8,6,.88) 42%,rgba(10,8,6,.6) 100%)}
+.active .kb-in img{animation:kbIn 26s var(--ease) forwards}
+.active .kb-out img{animation:kbOut 26s var(--ease) forwards}
+.active .kb-l img{animation:kbL 28s var(--ease) forwards}
+.active .kb-r img{animation:kbR 28s var(--ease) forwards}
+@keyframes kbIn{from{transform:scale(1.09)}to{transform:scale(1.015)}}
+@keyframes kbOut{from{transform:scale(1.015)}to{transform:scale(1.08)}}
+@keyframes kbL{from{transform:scale(1.07) translateX(1.2%)}to{transform:scale(1.07) translateX(-1.2%)}}
+@keyframes kbR{from{transform:scale(1.07) translateX(-1.2%)}to{transform:scale(1.07) translateX(1.2%)}}
+@keyframes kbSettle{from{transform:scale(1.06)}to{transform:scale(1)}}
+.vignette::before{content:"";position:absolute;inset:0;z-index:9;pointer-events:none;
+  background:radial-gradient(ellipse at center,transparent 55%,rgba(0,0,0,.55) 100%)}
+
+/* frame + layout */
+.frame{position:absolute;inset:0;z-index:10;padding:calc(var(--pad) + 30px) var(--pad) calc(var(--pad) + 22px);
+  display:flex;flex-direction:column;justify-content:center}
+.frame.bottom{justify-content:flex-end}
+.frame.center{align-items:center;text-align:center}
+.split{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:clamp(32px,5.4vw,104px);align-items:center;height:100%;max-height:100%}
+.split.rev{grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr)}
+.measure{max-width:min(100%,980px)}
+.narrow{max-width:min(100%,760px)}
+.stack>*{margin:0}
+.stack>*+*{margin-top:var(--gap)}
+.stack>.gap-l{margin-top:calc(var(--gap) * 2)}
+
+/* tall media column (vertical footage / portraits) */
+.tall{position:relative;height:min(70vh,820px);aspect-ratio:9/16;max-width:100%;overflow:hidden;justify-self:center;background:#0c0a08}
+.tall.p45{aspect-ratio:4/5}
+.tall>img,.tall>video{width:100%;height:100%;object-fit:cover}
+.active .tall.kb>img{animation:kbSettle 24s var(--ease) forwards}
+.cap{position:absolute;left:14px;bottom:12px;font-size:var(--t-label);letter-spacing:.24em;text-transform:uppercase;color:#efe9df;opacity:.85;z-index:2;font-weight:400}
+.tags{display:flex;flex-wrap:wrap;gap:8px}
+.tag{display:inline-block;font-size:var(--t-label);letter-spacing:.22em;text-transform:uppercase;padding:7px 11px 6px;border:1px solid currentColor;opacity:.7;font-weight:400}
+
+
+
+.layers .bg[data-at]{opacity:0;transition:opacity 1.6s var(--ease)}
+.layers .bg[data-at].on{opacity:1}
+
+  -webkit-mask-image:linear-gradient(to right,transparent 0,rgba(0,0,0,.35) 10%,rgba(0,0,0,.8) 22%,#000 34%);
+  mask-image:linear-gradient(to right,transparent 0,rgba(0,0,0,.35) 10%,rgba(0,0,0,.8) 22%,#000 34%)}
+
+/* placeholder for footage still to be filmed */
+.dash{position:relative;border:1px dashed currentColor;opacity:.55;display:flex;align-items:flex-end;padding:12px;
+  font-size:var(--t-label);letter-spacing:.2em;text-transform:uppercase;line-height:1.6;font-weight:400}
+.slide:not(.paper) .dash{border-color:rgba(235,229,219,.5);color:#ebe5db}
+
+/* type */
+.kicker{font-size:var(--t-kicker);letter-spacing:.34em;text-transform:uppercase;opacity:.66;font-weight:400}
+.word{font-weight:300;letter-spacing:.46em;padding-left:.46em;font-size:clamp(72px,16vw,280px);line-height:1;margin:0}
+.h0{font-weight:300;font-size:var(--t-h0);line-height:1.08;letter-spacing:.01em;margin:0}
+.h1{font-weight:300;font-size:var(--t-h1);line-height:1.08;margin:0;text-wrap:balance}
+.h2{font-weight:300;font-size:var(--t-h2);line-height:1.2;margin:0;text-wrap:balance}
+.h3{font-weight:400;font-size:var(--t-h3);line-height:1.25;margin:0}
+.serif{font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-weight:300;letter-spacing:0;padding:0 .12em 0 .1em;margin-left:-.1em}
+.body{font-size:var(--t-body);line-height:1.6;max-width:34em;margin:0;opacity:.88;text-wrap:pretty}
+.small{font-size:var(--t-small);line-height:1.6;opacity:.66;max-width:42em;margin:0;text-wrap:pretty}
+.rule{width:56px;height:1px;background:currentColor;opacity:.4;border:0;margin:0}
+.lock{font-weight:300;letter-spacing:.32em;line-height:1.08;font-size:clamp(46px,8vw,144px);margin:0;padding-left:.32em}
+.lock.line{font-size:clamp(30px,4.2vw,72px);letter-spacing:.24em;padding-left:0;white-space:nowrap}
+.lock .ol{display:inline-block;margin-left:.114em} /* the I and R stems sit under the vertical stem of the T (Jost 300: T stem centre ≈ .215em from its left ink, I/R ink starts .07em right of the box) */
+.jp{font-family:'Hiragino Mincho ProN','Yu Mincho','Noto Serif JP','Noto Serif CJK JP',serif;font-weight:300;writing-mode:vertical-rl;letter-spacing:.4em;font-size:clamp(18px,1.6vw,26px);opacity:.7}
+
+/* reveals */
+.rv{opacity:0;transform:translateY(20px);transition:opacity 1.3s var(--ease),transform 1.5s var(--ease)}
+.active .rv{opacity:1;transform:none;transition-delay:calc(.55s + var(--d,0) * .32s)}
+.step{opacity:0;transform:translateY(16px);transition:opacity 1.1s var(--ease),transform 1.3s var(--ease)}
+.step.shown{opacity:1;transform:none}
+/* swap: lines share one grid cell, so the box always fits the longest line */
+.swap{display:grid}
+.swap>*{grid-area:1/1;margin:0}
+.swap .step.shown.past{opacity:0;transform:translateY(-14px)}
+
+/* grids */
+.six{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(18px,2.2vw,40px) clamp(18px,2.4vw,44px);margin-top:clamp(22px,2.8vw,48px)}
+.six .card{display:grid;grid-template-columns:clamp(72px,6.6vw,116px) 1fr;gap:clamp(12px,1.2vw,20px);align-items:start}
+.six .card .ph{aspect-ratio:4/5;overflow:hidden;background:#cfc6b8}
+.six .card .ph img{width:100%;height:100%;object-fit:cover}
+.six .card h4{margin:0 0 6px;font-weight:400;font-size:var(--t-h3);line-height:1.2}
+.six .card p{margin:0;font-size:var(--t-small);line-height:1.55;opacity:.8}
+.six .card .pl{display:block;margin-top:9px;font-size:var(--t-label);letter-spacing:.22em;text-transform:uppercase;color:var(--clay);font-weight:400}
+
+.cols{display:grid;grid-template-columns:repeat(var(--n,4),minmax(0,1fr));gap:clamp(18px,2.2vw,40px) clamp(16px,2vw,36px);margin-top:clamp(24px,3vw,52px)}
+.cols .c{border-top:1px solid currentColor;padding-top:16px}
+.cols .c .k{font-size:var(--t-label);letter-spacing:.26em;text-transform:uppercase;opacity:.6;font-weight:400}
+.cols .c h4{margin:10px 0 8px;font-weight:400;font-size:var(--t-h3);line-height:1.25}
+.cols .c p{margin:0;font-size:var(--t-small);line-height:1.55;opacity:.8}
+.slide:not(.paper) .cols .c{border-color:rgba(235,229,219,.26)}
+
+.list{list-style:none;margin:0;padding:0}
+.list li{padding:clamp(11px,1.1vw,16px) 0;border-top:1px solid rgba(20,17,14,.16);display:grid;grid-template-columns:minmax(110px,11em) 1fr;gap:20px;font-size:var(--t-small);line-height:1.55}
+.list li:last-child{border-bottom:1px solid rgba(20,17,14,.16)}
+.slide:not(.paper) .list li{border-color:rgba(235,229,219,.18)}
+.list li b{font-weight:400;letter-spacing:.04em;font-size:clamp(14px,1vw,17.5px)}
+.list li span{opacity:.8}
+
+.rules{list-style:none;margin:0;padding:0}
+.rules li{font-size:var(--t-h2);line-height:1.3;font-weight:300}
+.rules li em{font-family:'Cormorant Garamond',serif;font-style:italic;opacity:.6}
+
+.posts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(12px,1.4vw,22px);margin-top:clamp(22px,2.6vw,42px)}
+.post{background:var(--paper2);padding:clamp(18px,1.8vw,30px);display:flex;flex-direction:column;gap:14px}
+.post .serif{font-size:clamp(21px,1.75vw,30px);line-height:1.25;font-style:normal;font-weight:400}
+.post .meta{font-size:var(--t-label);letter-spacing:.24em;text-transform:uppercase;opacity:.55;font-weight:400}
+
+.duo{display:flex;justify-content:center;gap:clamp(8px,1vw,14px);height:min(70vh,820px);justify-self:center}
+.duo>div{height:100%;aspect-ratio:9/16;flex:0 0 auto}
+.duo>div{position:relative;overflow:hidden;background:#0c0a08}
+.duo>.dash{background:transparent}
+.duo img,.duo video{width:100%;height:100%;object-fit:cover}
+
+/* contact sheet / portrait grids */
+.sheet{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(5px,.6vw,10px);width:100%;max-width:min(100%,62vh)}
+.sheet>div{aspect-ratio:4/5;overflow:hidden;position:relative;background:#0c0a08}
+.sheet>.dash{background:transparent;padding:8px;font-size:9.5px;letter-spacing:.16em}
+.sheet img{width:100%;height:100%;object-fit:cover}
+.sheet .yr{position:absolute;left:7px;bottom:6px;font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;color:#efe9df;font-weight:400;opacity:.85}
+
+.ask{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(6px,.8vw,12px)}
+.ask>div{aspect-ratio:4/5;overflow:hidden;background:#cfc6b8;position:relative}
+.ask>.dash{background:transparent}
+.ask img{width:100%;height:100%;object-fit:cover;filter:saturate(.85)}
+
+.timeline{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(16px,2.2vw,40px);margin-top:clamp(28px,3.4vw,58px);position:relative}
+.timeline::before{content:"";position:absolute;left:0;right:0;top:7px;height:1px;background:currentColor;opacity:.25}
+.timeline .t{position:relative;padding-top:30px}
+.timeline .t::before{content:"";position:absolute;left:0;top:2px;width:11px;height:11px;border-radius:50%;background:currentColor}
+.timeline .t.ours::before{background:var(--clay)}
+.timeline .t .k{font-size:var(--t-label);letter-spacing:.26em;text-transform:uppercase;opacity:.6;font-weight:400}
+.timeline .t h4{margin:9px 0 8px;font-weight:400;font-size:var(--t-h3);line-height:1.25}
+.timeline .t p{margin:0;font-size:var(--t-small);line-height:1.55;opacity:.8}
+
+.links{display:flex;flex-wrap:wrap;gap:12px 28px;justify-content:center}
+.links a{font-size:var(--t-kicker);letter-spacing:.3em;text-transform:uppercase;text-decoration:none;border-bottom:1px solid rgba(235,229,219,.4);padding-bottom:5px;opacity:.85;font-weight:400}
+.links a:hover{opacity:1;border-color:#ebe5db}
+
+
+/* two ceremonies */
+.rec{border-left:1px solid rgba(235,229,219,.4);padding:4px 0 4px 20px}
+.rec .kicker{margin-bottom:8px;opacity:.85}
+.rec .small{opacity:.8}
+.wood{display:flex;align-items:stretch;justify-content:center;gap:clamp(28px,4vw,72px);height:min(62vh,640px)}
+.wood .w{display:flex;flex-direction:column;align-items:center;justify-content:space-between;text-align:center}
+.wood .g{flex:1;display:flex;align-items:center;justify-content:center}
+.wood .ja{font-family:'Hiragino Mincho ProN','Yu Mincho','Noto Serif JP','Noto Serif CJK JP',serif;writing-mode:vertical-rl;font-size:clamp(64px,7vw,128px);letter-spacing:.18em;font-weight:300;line-height:1}
+.wood .ar{font-family:'Geeza Pro','Al Nile','Noto Naskh Arabic','Amiri','Times New Roman',serif;font-size:clamp(76px,8.4vw,150px);font-weight:400;line-height:1;direction:rtl}
+.wood .lbl{font-size:var(--t-label);letter-spacing:.26em;text-transform:uppercase;opacity:.6;font-weight:400;line-height:1.7}
+.wood .div{width:1px;background:currentColor;opacity:.28}
+.wood .ja,.wood .ar{opacity:.2;will-change:opacity,transform,filter;animation:smoke 16s ease-in-out infinite alternate}
+.wood .ar{animation-delay:-7s}
+.wood .ja,.wood .ar{position:relative}
+.wood .ja::before,.wood .ja::after,.wood .ar::before,.wood .ar::after{content:"";position:absolute;left:50%;top:-.12em;width:2px;height:.9em;margin-left:-1px;border-radius:2px;pointer-events:none;
+  background:linear-gradient(to top,rgba(235,229,219,.42),rgba(235,229,219,.12) 55%,rgba(235,229,219,0));filter:blur(1.3px);opacity:0;transform-origin:50% 100%;animation:wisp 12s ease-in-out infinite}
+.wood .ja::after,.wood .ar::after{animation-delay:-6s;animation-duration:14s;margin-left:.08em}
+.wood .ar::before,.wood .ar::after{animation-delay:-3s}
+.wood .ar::after{animation-delay:-9s}
+@keyframes wisp{0%{opacity:0;transform:translate(0,0) scaleX(1)}12%{opacity:.5}45%{transform:translate(5px,-.55em) scaleX(1.9)}75%{opacity:.18}100%{opacity:0;transform:translate(-4px,-1.15em) scaleX(2.8)}}
+@keyframes smoke{0%{opacity:.14;filter:blur(.4px);transform:translateY(0)}45%{opacity:.26;filter:blur(1.3px);transform:translateY(-5px)}70%{opacity:.17;filter:blur(.9px);transform:translateY(-8px)}100%{opacity:.22;filter:blur(.6px);transform:translateY(-3px)}}
+@media (max-width:900px){.wood{height:auto;gap:28px;padding:10px 0}.wood .g{min-height:150px}}
+
+/* ---------- chrome ---------- */
+.ui{position:fixed;z-index:40;color:#e9e3d9;mix-blend-mode:difference;font-size:var(--t-label);letter-spacing:.3em;text-transform:uppercase;font-weight:400;pointer-events:none}
+.ui button,.ui a{pointer-events:auto}
+.ui.tl{left:var(--pad);top:calc(var(--pad)*.42 + 6px)}
+.ui.tr{right:var(--pad);top:calc(var(--pad)*.42 + 6px);display:flex;gap:22px;align-items:center}
+.ui.bl{left:var(--pad);bottom:calc(var(--pad)*.42 + 6px)}
+.ui.br{right:var(--pad);bottom:calc(var(--pad)*.42 + 6px);font-variant-numeric:tabular-nums}
+.ui button{background:none;border:0;color:inherit;font:inherit;letter-spacing:inherit;text-transform:inherit;cursor:pointer;padding:6px 0}
+.snd{display:inline-flex;gap:3px;align-items:flex-end;height:11px;margin-right:9px;vertical-align:-1px}
+.snd i{width:2px;background:currentColor;height:3px;transition:height .3s}
+body.sound-on .snd i{animation:eq 1.2s ease-in-out infinite}
+body.sound-on .snd i:nth-child(2){animation-delay:-.4s}
+body.sound-on .snd i:nth-child(3){animation-delay:-.8s}
+@keyframes eq{0%,100%{height:3px}50%{height:11px}}
+.progress{position:fixed;left:0;bottom:0;height:2px;background:#e9e3d9;mix-blend-mode:difference;z-index:40;width:0;transition:width 1.2s var(--ease)}
+.clock{font-variant-numeric:tabular-nums;opacity:.75}
+
+.grain{position:fixed;inset:-60%;z-index:45;pointer-events:none;opacity:.085;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .5  0 0 0 0 .5  0 0 0 0 .5  0 0 0 1 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  animation:grain .9s steps(5) infinite}
+@keyframes grain{0%{transform:translate(0,0)}20%{transform:translate(-3%,2%)}40%{transform:translate(2%,-3%)}60%{transform:translate(-2%,-1%)}80%{transform:translate(3%,3%)}100%{transform:translate(0,0)}}
+
+/* gate */
+.gate{position:fixed;inset:0;z-index:60;background:var(--ink);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:26px;transition:opacity 1.8s var(--ease),visibility 0s 1.8s;padding:var(--pad)}
+.gate.gone{opacity:0;visibility:hidden}
+.gate .mark{font-size:clamp(34px,4.6vw,68px);letter-spacing:.5em;padding-left:.5em;font-weight:300}
+.gate .line{width:1px;height:64px;background:linear-gradient(#ebe5db,transparent);opacity:.5}
+.gate button{background:none;border:1px solid rgba(235,229,219,.5);color:var(--paper);font:inherit;font-size:var(--t-kicker);letter-spacing:.34em;text-transform:uppercase;padding:16px 28px 15px;cursor:pointer;transition:background .6s,color .6s;font-weight:400}
+.gate button:hover{background:var(--paper);color:var(--ink)}
+.gate .alt{border:0;padding:6px;opacity:.55;font-size:var(--t-label)}
+.gate .alt:hover{background:none;color:var(--paper);opacity:1}
+.gate .hint{font-size:var(--t-label);letter-spacing:.28em;text-transform:uppercase;opacity:.4;margin-top:10px}
+
+/* ---------- shorter desktop screens ---------- */
+@media (max-height:760px) and (min-width:901px){
+  :root{--t-h0:clamp(36px,4.6vw,80px);--t-h1:clamp(28px,3.1vw,52px);--gap:12px}
+  .tall{height:64vh}
+  .duo{height:60vh}
+}
+
+/* ---------- responsive ---------- */
+@media (max-width:900px){
+  :root{--t-h0:clamp(36px,9vw,56px);--t-h1:clamp(28px,7vw,40px);--t-h2:clamp(21px,5.4vw,28px);--t-body:15px;--t-small:13.5px}
+  .split,.split.rev{grid-template-columns:1fr;gap:24px;align-content:start;height:auto}
+  .split.rev>.tall,.split.rev>.media-first{order:2}
+  .tall{height:42vh;justify-self:start}
+  .six{grid-template-columns:1fr 1fr}
+  .cols,.timeline{grid-template-columns:1fr 1fr}
+  .posts{grid-template-columns:1fr}
+  .duo{height:42vh}
+  .duo>div{flex:1 1 0;aspect-ratio:auto}
+  .sheet{max-width:100%}
+  .list li{grid-template-columns:1fr;gap:4px}
+  .hide-m{display:none !important}
+  .frame{overflow-y:auto;overflow-x:hidden;justify-content:flex-start;padding-top:calc(var(--pad) + 50px);padding-bottom:calc(var(--pad) + 40px)}
+  .frame.center,.frame.word-frame,.frame.bottom{justify-content:center}
+  .frame.bottom{justify-content:flex-end}
+  .lock.line{white-space:normal}
+}
+@media (max-width:560px){
+  .six,.cols,.timeline{grid-template-columns:1fr}
+  .timeline::before{display:none}
+  .word{letter-spacing:.3em;padding-left:.3em}
+  .ask{grid-template-columns:repeat(4,minmax(0,1fr))}
+  .ui.bl{display:none}
+}
+@media (prefers-reduced-motion:reduce){
+  .active .kb-in img,.active .kb-out img,.active .kb-l img,.active .kb-r img,.active .tall.kb>img,.wood .ja,.wood .ar,.wood .ja::before,.wood .ja::after,.wood .ar::before,.wood .ar::after,.grain{animation:none}
+}
+</style>
+</head>
+<body>
+
+<div class="gate" id="gate">
+  <div class="kicker">INHAUS &nbsp;for</div>
+  <div class="mark">YOROZU</div>
+  <div class="line"></div>
+  <p class="serif" style="font-size:clamp(22px,2.2vw,34px);margin:0">Take your time.</p>
+  <button id="enterSound">Begin with sound</button>
+  <button class="alt" id="enterSilent">Begin in silence</button>
+  <div class="hint">→ / space to advance &nbsp;·&nbsp; F for full screen</div>
+</div>
+
+<div class="ui tl">Yorozu &nbsp;×&nbsp; Inhaus</div>
+<div class="ui tr"><span class="clock" id="clock">00:00</span><button id="soundBtn" aria-label="Toggle sound"><span class="snd"><i></i><i></i><i></i></span><span id="soundLbl">Sound off</span></button></div>
+<div class="ui bl" id="section"></div>
+<div class="ui br" id="count"></div>
+<div class="progress" id="progress"></div>
+<div class="grain"></div>
+
+<main class="deck" id="deck">
+
+<!-- ============ OPENING ============ -->
+<section class="slide vignette" data-section="Opening" data-bed="sea" data-level="1">
+  <div class="bg dim"><video data-src="assets/video/dawn-sea-loop.mp4" poster="assets/img/dawn-sea.jpg" muted loop playsinline></video></div>
+  <div class="frame center word-frame"><h1 class="word rv">TIME</h1></div>
+</section>
+
+<section class="slide vignette" data-section="Opening" data-bed="sea" data-level="1">
+  <div class="bg kb-out dimmer"><img data-src="assets/img/drop.jpg" alt=""></div>
+  <div class="frame center word-frame"><h1 class="word rv">IS</h1></div>
+</section>
+
+<section class="slide vignette" data-section="Opening" data-bed="sea" data-level="1">
+  <div class="bg kb-in dim"><img data-src="assets/img/knife-tuna.jpg" alt=""></div>
+  <div class="frame center word-frame"><h1 class="word rv">RARE</h1></div>
+</section>
+
+<section class="slide vignette" data-section="Opening" data-bed="brewery" data-level=".8">
+  <div class="bg kb-in dimmer"><img data-src="assets/img/cut-macro.jpg" alt=""></div>
+  <div class="frame center">
+    <div class="stack">
+      <p class="h1 rv">Sushi screams <span style="font-weight:400;letter-spacing:.3em">FRESH.</span></p>
+      <p class="h0 serif step">Jukusei whispers time.</p>
+    </div>
+  </div>
+  <div class="frame hide-m" style="align-items:flex-end;justify-content:center;pointer-events:none"><span class="jp rv" style="--d:3">熟成</span></div>
+</section>
+
+<!-- ============ THE CHALLENGE ============ -->
+<section class="slide paper" data-section="The challenge" data-bed="brewery" data-level=".18">
+  <div class="frame">
+    <div class="split">
+      <div class="stack narrow">
+        <div class="kicker rv">01 &nbsp;— &nbsp;What we heard</div>
+        <h2 class="h1 rv" style="--d:1">A rare dining <span class="serif">ritual.</span></h2>
+        <p class="body rv" style="--d:2">Twenty seats. Fish from local waters, technique from Japan, and the patience of aging in between. A brand that already knows how it should look: light over colour, process over plate, nothing staged.</p>
+        <p class="body rv" style="--d:3">The ambition is clear: MENA's 50 Best, What's On, Time Out — and, in time, a Michelin star.</p>
+        <hr class="rule rv gap-l" style="--d:4">
+        <p class="h2 rv" style="--d:5">Your plan takes Yorozu to opening night. <span class="serif">This is about every night after that.</span></p>
+      </div>
+      <div class="tall p45 kb rv" style="--d:1"><img data-src="assets/img/chef-dark.jpg" alt=""><span class="cap">Japan · archive</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="slide vignette" data-section="The challenge" data-bed="market" data-level=".3">
+  <div class="bg kb-l dimmer"><img data-src="assets/img/copper.jpg" alt=""></div>
+  <div class="frame">
+    <div class="stack measure">
+      <div class="kicker rv">The category</div>
+      <p class="h1 rv" style="--d:1">Premium Japanese has become <span class="serif">a visual category.</span></p>
+      <p class="h2 serif step gap-l">Beautiful fish. Dark rooms. Fire. Knives. Counters. Craft.</p>
+      <p class="body step gap-l">Closer to home, Strawfire has built a world around one Japanese technique and its craft. NIRI has given premium Japanese dining in the city a strong aesthetic and cultural voice. Both show how high the bar is: a clear idea and a beautiful eye, from day one.</p>
+    </div>
+  </div>
+</section>
+
+<section class="slide vignette" data-section="The challenge" data-bed="brewery" data-level=".3">
+  <div class="bg dimmer"><video data-src="assets/video/skin-green-loop.mp4" poster="assets/img/skin-green.jpg" muted loop playsinline></video></div>
+  <div class="frame">
+    <div class="stack measure">
+      <div class="kicker rv">The real challenge</div>
+      <p class="h1 rv" style="--d:1">The challenge isn't how Yorozu looks at launch. <span class="serif">It's how it still feels unmistakably Yorozu in year three.</span></p>
+      <p class="h2 step gap-l">Week one is easy. Week fifty-two is where rare brands start to look ordinary.</p>
+      <p class="body step">Yorozu already has its world. Our job is to give it one idea that keeps that world coherent for years.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ THE IDEA ============ -->
+<section class="slide vignette" data-section="The idea" data-bed="brewery" data-level=".9">
+  <div class="bg dim"><video data-src="assets/video/sake-surface-loop.mp4" poster="assets/img/sake-surface.jpg" muted loop playsinline></video></div>
+  <div class="frame center">
+    <div class="stack" style="display:flex;flex-direction:column;align-items:center">
+      <div class="kicker rv">02 &nbsp;— &nbsp;The idea</div>
+      <p class="h1 rv" style="--d:1">Jukusei is built on the one ingredient<br class="hide-m"> you cannot accelerate.</p>
+      <p class="word step" style="font-size:clamp(56px,10vw,170px);margin-top:4vh">TIME</p>
+    </div>
+  </div>
+</section>
+
+<section class="slide paper" data-section="The idea" data-bed="brewery" data-level=".2">
+  <div class="frame">
+    <div class="split rev">
+      <div><p class="lock rv">TIME<br><span class="ol">IS</span><br><span class="ol">RARE</span></p></div>
+      <div class="stack narrow">
+        <div class="kicker rv" style="--d:2">Our platform for Yorozu</div>
+        <p class="h2 rv" style="--d:3">Everything at Yorozu is made of time.</p>
+        <p class="body rv" style="--d:4">The season a fish needs. The years behind a cut. The patience of aging. The pace of a dinner for twenty.</p>
+        <p class="body rv" style="--d:5">In a city that can buy almost anything, time is the one thing nobody can buy more of. Yorozu doesn't rush it. That's what it serves.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="slide vignette layers" data-section="The idea" data-bed="market" data-level=".7">
+  <div class="bg kb-in dim on" data-at="0"><img data-src="assets/img/water.jpg" alt=""></div>
+  <div class="bg kb-out dim" data-at="1"><img data-src="assets/img/rice-reflection.jpg" alt=""></div>
+  <div class="bg dim" data-at="2"><video data-src="assets/video/miso-texture-loop.mp4" poster="assets/img/miso-texture.jpg" muted loop playsinline></video></div>
+  <div class="bg kb-r dim" data-at="3"><img data-src="assets/img/knife-olive.jpg" alt=""></div>
+  <div class="bg kb-in dimmer" data-at="4"><img data-src="assets/img/counter-dark.jpg" alt=""></div>
+  <div class="frame bottom">
+    <div class="swap measure">
+      <p class="h1 rv">It takes time for a fish to grow.</p>
+      <p class="h1 step">It takes time to harvest the rice.</p>
+      <p class="h1 step">It takes time to develop a flavour.</p>
+      <p class="h1 step">It takes time to learn the cut.</p>
+      <p class="h1 step"><span class="serif">And it takes time to experience it.</span></p>
+    </div>
+  </div>
+</section>
+
+<section class="slide dark" data-section="The idea" data-bed="sea" data-level=".35">
+  <div class="frame">
+    <div class="split">
+      <div class="stack narrow">
+        <div class="kicker rv">A point of view</div>
+        <p class="h1 rv" style="--d:1">Rare is not the same <span class="serif">as exclusive.</span></p>
+        <p class="h2 step gap-l">Yorozu isn't rare because of who gets in.</p>
+        <p class="h2 serif step">It's rare because nothing here is rushed.</p>
+      </div>
+      <div class="tall p45 rv" style="--d:1"><video data-src="assets/video/road-man.mp4" poster="assets/img/road-man.jpg" muted loop playsinline></video><span class="cap">Nagano · archive</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="slide umber layers" data-section="The idea" data-bed="brewery" data-level=".5">
+  <div class="frame">
+    <div class="split">
+      <div class="stack">
+        <div class="kicker rv">The campaign system</div>
+        <p class="lock line rv" style="--d:1">TIME IS RARE</p>
+        <div class="swap">
+          <p class="h2 serif rv" style="--d:2">It can take years before a sushi chef is trusted with this cut.</p>
+          <p class="h2 serif step">This rice took a season to grow.</p>
+          <p class="h2 serif step">The same movement. Repeated thousands of times.</p>
+          <p class="h2 serif step">Caught this morning. Not ready yet.</p>
+          <p class="h2 serif step">Some flavours only arrive when you stop rushing them.</p>
+          <p class="h2 serif step">Twenty seats. One evening.</p>
+        </div>
+        <hr class="rule rv gap-l" style="--d:3">
+        <p class="h3 rv" style="--d:3.5">One permanent line. Endless true second lines.</p>
+        <p class="small rv" style="--d:4">Every second line comes from a real fact about the ingredient, the producer, the chef, the sea or the room. Aging, craft, sourcing, seasons, service — nothing invented, nothing exaggerated.</p>
+      </div>
+      <div class="tall p45 rv" style="--d:1">
+        <div class="bg on" data-at="0"><video data-src="assets/video/knife-glove.mp4" poster="assets/img/knife-glove.jpg" muted loop playsinline></video></div>
+        <div class="bg" data-at="1"><video data-src="assets/video/seedling.mp4" poster="assets/img/seedling.jpg" muted loop playsinline></video></div>
+        <div class="bg" data-at="2"><video data-src="assets/video/stir.mp4" poster="assets/video/stir.jpg" muted loop playsinline></video></div>
+        <div class="bg" data-at="3"><video data-src="assets/video/market-ice.mp4" poster="assets/video/market-ice.jpg" muted loop playsinline></video></div>
+        <div class="bg" data-at="4"><video data-src="assets/video/miso-rake.mp4" poster="assets/img/miso-rake.jpg" muted loop playsinline></video></div>
+        <div class="bg" data-at="5"><video data-src="assets/video/sake-glass.mp4" poster="assets/video/sake-glass.jpg" muted loop playsinline></video></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CONTENT ============ -->
+<section class="slide paper" data-section="Content" data-bed="market" data-level="1">
+  <div class="frame">
+    <div class="split">
+      <div class="stack narrow">
+        <div class="kicker rv">03 &nbsp;— &nbsp;Content</div>
+        <h2 class="h0 rv" style="--d:1">Time is <span class="serif">the lens.</span></h2>
+        <p class="body rv" style="--d:2">Not a list of series. One way of looking at everything Yorozu does — the food, the people, the place, the craft and the evening itself.</p>
+      </div>
+      <div class="tall p45 rv" style="--d:1"><video data-src="assets/video/waves.mp4" poster="assets/video/waves.jpg" muted loop playsinline></video><span class="cap">Amakusa · archive</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="slide paper" data-section="Content" data-bed="market" data-level=".2">
+  <div class="frame">
+    <div class="kicker rv">Six territories</div>
+    <h2 class="h1 rv" style="--d:1;margin-top:14px">Where time lives <span class="serif">at Yorozu.</span></h2>
+    <div class="six">
+      <div class="card rv" style="--d:2"><div class="ph"><img data-src="assets/img/skin-orange.jpg" alt=""></div><div><h4>Time in the ingredient</h4><p>Aging, fermentation, seasonality — at times a day-by-day aging log, never the whole story.</p><span class="pl">Ingredients · Science</span></div></div>
+      <div class="card rv" style="--d:2.4"><div class="ph"><img data-src="assets/img/rice-hands-elder.jpg" alt=""></div><div><h4>Time in the craft</h4><p>Training, repetition, mastery. Years behind every movement.</p><span class="pl">Excellence</span></div></div>
+      <div class="card rv" style="--d:2.8"><div class="ph"><img data-src="assets/img/fisherman.jpg" alt=""></div><div><h4>Time in the source</h4><p>Fishing, growing, brewing. People who work at nature's pace.</p><span class="pl">Ingredients</span></div></div>
+      <div class="card rv" style="--d:3.2"><div class="ph"><img data-src="assets/img/rock-sea.jpg" alt=""></div><div><h4>Time in the place</h4><p>Local waters, Gulf seasons, the hours of Abu Dhabi's fishermen.</p><span class="pl">Localization</span></div></div>
+      <div class="card rv" style="--d:3.6"><div class="ph"><img data-src="assets/img/brewer-door.jpg" alt=""></div><div><h4>Time in the ritual</h4><p>Preparation, service, the stillness between courses.</p><span class="pl">Experience</span></div></div>
+      <div class="card rv" style="--d:4"><div class="ph"><img data-src="assets/img/fishwife.jpg" alt=""></div><div><h4>What is worth waiting for?</h4><p>One question, asked for years, to people who know the answer.</p><span class="pl">Culture</span></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="slide dark" data-section="Content" data-bed="sea" data-level=".3">
+  <div class="frame">
+    <div class="split">
+      <div class="stack narrow">
+        <div class="kicker rv">The archive</div>
+        <h2 class="h1 rv" style="--d:1">An archive that gets <span class="serif">better with age.</span></h2>
+        <p class="body rv" style="--d:2">The Japan journey isn't launch content. It's the first chapter of Yorozu's archive: producers, fishermen, rice, sake, miso, hands, tools, textures.</p>
+        <p class="body rv" style="--d:3">Every year adds Abu Dhabi to it. Every old frame gains new meaning beside a new one.</p>
+        <p class="h2 serif step gap-l">In year three, the same footage says something new: this is how long Yorozu has been doing this.</p>
+      </div>
+      <div class="sheet rv" style="--d:1;justify-self:center">
+        <div><img data-src="assets/img/mackerel.jpg" alt=""><span class="yr">Kyushu</span></div>
+        <div><img data-src="assets/img/hand-rice.jpg" alt=""><span class="yr">Nagano</span></div>
+        <div><img data-src="assets/img/redfish.jpg" alt=""><span class="yr">Kyushu</span></div>
+        <div><img data-src="assets/img/koji-hands.jpg" alt=""><span class="yr">Nagano</span></div>
+        <div><img data-src="assets/img/boat-mist.jpg" alt=""><span class="yr">Amakusa</span></div>
+        <div><img data-src="assets/img/infusion.jpg" alt=""><span class="yr">Kyoto</span></div>
+        <div><img data-src="assets/img/fish-ice.jpg" alt=""><span class="yr">Kyushu</span></div>
+        <div><img data-src="assets/img/filter.jpg" alt=""><span class="yr">Kyoto</span></div>
+        <div><img data-src="assets/img/market-silhouette.jpg" alt=""><span class="yr">Amakusa</span></div>
+        <div class="dash">Y1<br>Abu Dhabi</div>
+        <div class="dash">Y2<br>Return</div>
+        <div class="dash">Y3<br>Then &amp; now</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="slide dark" data-section="Content" data-bed="market" data-level=".25">
+  <div class="frame">
+    <div class="split rev">
+      <div class="tall p45 kb rv"><img data-src="assets/img/fin-macro.jpg" alt=""></div>
+      <div class="stack">
+        <div class="kicker rv">The rules of the look</div>
+        <ul class="rules">
+          <li class="rv" style="--d:1">Light <em>over</em> colour.</li>
+          <li class="rv" style="--d:1.5">Process <em>over</em> plate.</li>
+          <li class="rv" style="--d:2">Hands <em>over</em> faces.</li>
+          <li class="rv" style="--d:2.5">Silence <em>over</em> noise.</li>
+          <li class="rv" style="--d:3">One grade, <em>every frame.</em></li>
+          <li class="rv" style="--d:3.5">Documented, <em>never staged.</em></li>
+        </ul>
+        <p class="small rv gap-l" style="--d:4.5">Your brand book already says it. We hold every frame to it — the archive and the new footage alike, so years of material read as one body of work.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="slide dark" data-section="Content" data-bed="sea" data-level=".6">
+  <div class="frame">
+    <div class="split">
+      <div class="stack narrow">
+        <div class="kicker rv">Time in the place</div>
+        <h2 class="h0 rv" style="--d:1">Two <span class="serif">Coasts.</span></h2>
+        <p class="body rv" style="--d:2">Japanese technique, interpreted through local waters. A dawn in Kyushu beside a dawn in Abu Dhabi. The auction in Amakusa beside the fish market at Mina.</p>
+        <p class="h2 serif rv" style="--d:3">Same discipline. Different water.</p>
+      </div>
+      <div class="duo rv" style="--d:1">
+        <div><video data-src="assets/video/sea-boat.mp4" poster="assets/video/sea-boat.jpg" muted loop playsinline></video><span class="cap">Kyushu · archive</span></div>
+        <div><video data-src="assets/video/mina-dawn.mp4" poster="assets/img/mina-dawn.jpg" muted loop playsinline></video><span class="cap">Abu Dhabi · Mina, at dawn · visualisation</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="slide olive" data-section="Content" data-bed="brewery" data-level=".6">
+  <div class="frame">
+    <div class="split rev">
+      <div class="tall p45 rv"><video data-src="assets/video/boat-cut.mp4" poster="assets/video/boat-cut.jpg" muted loop playsinline></video><span class="cap">Amakusa · archive</span></div>
+      <div class="stack narrow">
+        <div class="kicker rv">Time in the craft</div>
+        <h2 class="h0 rv" style="--d:1">The <span class="serif">Cut.</span></h2>
+        <p class="body rv" style="--d:2">It can take years before a sushi chef is trusted with a cut like this. The Cut shows what those years look like: the same gesture, the same quiet, repeated.</p>
+        <p class="body rv" style="--d:3">Fifteen seconds of mastery, made for Reels and TikTok without chasing trends.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="slide dark" data-section="Content" data-bed="none" data-level="0">
+  <div class="frame">
+    <div class="split">
+      <div class="stack narrow">
+        <div class="kicker rv">Time in the ritual</div>
+        <h2 class="h0 rv" style="--d:1">Before <span class="serif">Service.</span></h2>
+        <p class="body rv" style="--d:2">The quiet hour before the first guest. Knives laid out, rice resting, the room waiting.</p>
+        <p class="body rv" style="--d:3">A small daily ritual in Stories. Anticipation, never a hard sell.</p>
+      </div>
+      <div class="tall p45 rv" style="--d:1"><video data-src="assets/video/ladle.mp4" poster="assets/video/ladle.jpg" muted loop playsinline></video><span class="cap">Nagano · archive</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="slide dark" data-section="Content" data-bed="market" data-level=".35">
+  <div class="frame">
+    <div class="split rev">
+      <div class="tall p45 kb rv"><img data-src="assets/img/chef-bw.jpg" alt=""></div>
+      <div class="stack narrow">
+        <div class="kicker rv">The recurring question</div>
+        <h2 class="h0 rv" style="--d:1">What is worth <span class="serif" style="white-space:nowrap">waiting for?</span></h2>
+        <p class="body rv gap-l" style="--d:2">One question, asked to different people for as long as Yorozu exists. Same frame, same light, same words. Radically different answers.</p>
+        <p class="h2 serif rv" style="--d:3">Yorozu doesn't answer it. Yorozu curates it.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="slide paper" data-section="Content" data-bed="none" data-level="0">
+  <div class="frame">
+    <div class="split">
+      <div class="stack narrow">
+        <div class="kicker rv">An editorial format, not a campaign</div>
+        <h2 class="h1 rv" style="--d:1">The power is in <span class="serif">the repetition.</span></h2>
+        <p class="body rv" style="--d:2">It starts before opening and never stops. A portrait, a name, an answer. Minimal branding — Yorozu only signs the question.</p>
+        <p class="small rv" style="--d:3">Chef Akira · rice farmers · brewers · fishermen in Japan and Abu Dhabi · artisans · artists · architects · designers · collectors · chefs · guests with a story</p>
+      </div>
+      <div class="ask rv" style="--d:1">
+        <div><img data-src="assets/img/miso-maker.jpg" alt=""></div>
+        <div><img data-src="assets/img/sake-guy.jpg" alt=""></div>
+        <div><img data-src="assets/img/soy-portrait.jpg" alt=""></div>
+        <div><img data-src="assets/img/drinklab-portrait.jpg" alt=""></div>
+        <div><img data-src="assets/img/brewer-tasting.jpg" alt=""></div>
+        <div><img data-src="assets/img/harbour-portrait.jpg" alt=""></div>
+        <div><img data-src="assets/img/chef-akira.jpg" alt=""><span class="cap">Chef Akira</span></div>
+        <div><img data-src="assets/img/fisherman-mina.jpg" alt=""><span class="cap">A fisherman at Mina</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="slide paper" data-section="Content" data-bed="none" data-level="0">
+  <div class="frame">
+    <div class="kicker rv">The voice</div>
+    <h2 class="h1 rv" style="--d:1;margin-top:14px">We write like the chef cuts: <span class="serif">nothing extra.</span></h2>
+    <div class="posts">
+      <div class="post rv" style="--d:2"><div class="meta">Ingredient</div><div class="serif">Nothing to show yet. That's the point.</div></div>
+      <div class="post rv" style="--d:2.5"><div class="meta">Craft</div><div class="serif">Years of practice. One cut.</div></div>
+      <div class="post rv" style="--d:3"><div class="meta">Place</div><div class="serif">He has fished these waters longer than we've been open.</div></div>
+      <div class="post rv" style="--d:3.5"><div class="meta">Ritual</div><div class="serif">The rice is resting. So is the room.</div></div>
+    </div>
+    <p class="small rv" style="--d:4.2;margin-top:clamp(18px,2.4vw,36px)">Short. Specific. Unhurried. No "indulge", no "exquisite", no exclamation marks. Arabic is written in Arabic, not translated into it.</p>
+  </div>
+</section>
+
+<section class="slide dark" data-section="Content" data-bed="brewery" data-level=".18">
+  <div class="frame">
+    <div class="split">
+      <div class="stack narrow">
+        <div class="kicker rv">The scent code</div>
+        <h2 class="h1 rv" style="--d:1">Two ceremonies. <span class="serif">One wood.</span></h2>
+        <p class="body rv" style="--d:2">Chef Akira asks guests to arrive without scent, so nothing stands between them and the fish. In Abu Dhabi, scent is hospitality itself. Said as a rule, it clashes with local custom.</p>
+        <p class="body rv" style="--d:3">Yet the agarwood burned in Japanese kōdō is the same wood that gives the Gulf its oud. Both cultures hold it sacred. And in the Gulf, oud traditionally closes a gathering.</p>
+        <p class="h2 serif step gap-l">Arrive without scent. Leave with one.</p>
+        <p class="body step">Inside, the chef's ceremony. At the farewell, the Emirati one: oud offered at the door.</p>
+        <div class="rec step">
+          <div class="kicker">INHAUS proposes, to Yorozu and its PR agency</div>
+          <p class="small">Tell the scent code as an encounter of two cultures, before anyone calls it a ban. Arabic written natively and reviewed by an Emirati voice.</p>
+        </div>
+      </div>
+      <div class="wood rv" style="--d:1.5">
+        <div class="w"><div class="g"><span class="ja">沈香</span></div><div class="lbl">Jinkō<br>Kōdō · Japan</div></div>
+        <div class="div"></div>
+        <div class="w"><div class="g"><span class="ar">عود</span></div><div class="lbl">Oud<br>Bakhoor · the Gulf</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ RHYTHM ============ -->
+<section class="slide dark" data-section="The rhythm" data-bed="sea" data-level=".8">
+  <div class="frame">
+    <div class="split">
+      <div class="stack narrow">
+        <div class="kicker rv">04 &nbsp;— &nbsp;The rhythm</div>
+        <h2 class="h0 rv" style="--d:1">Built on your plan.<br class="hide-m"> <span class="serif">Not instead of it.</span></h2>
+        <p class="body rv" style="--d:2">Launch is a moment. The platform is built to last.</p>
+      </div>
+      <div class="tall p45 rv" style="--d:1"><video data-src="assets/video/market-cap.mp4" poster="assets/video/market-cap.jpg" muted loop playsinline></video><span class="cap">Fish market · archive</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="slide paper" data-section="The rhythm" data-bed="sea" data-level=".12">
+  <div class="frame">
+    <div class="kicker rv">Over months and years</div>
+    <h2 class="h1 rv" style="--d:1;margin-top:14px">Launch is the first chapter, <span class="serif">not the story.</span></h2>
+    <div class="timeline">
+      <div class="t rv" style="--d:2"><div class="k">Pre-opening</div><h4>The journey</h4><p>Your Japan films, recut for social with the voices of the makers. The question is asked for the first time.</p></div>
+      <div class="t rv" style="--d:2.5"><div class="k">Opening</div><h4>The First 20</h4><p>Documented in details, not faces: the chopsticks, the seat numbers, the first evening.</p></div>
+      <div class="t rv" style="--d:3"><div class="k">Year one</div><h4>Abu Dhabi enters the archive</h4><p>Mina at dawn, local fishermen, the counter, Chef Akira. All six territories, every month.</p></div>
+      <div class="t ours rv" style="--d:3.5"><div class="k">Year two →</div><h4>Then and now</h4><p>Return to the same producers and fields. Old and new footage side by side. The archive deepens.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="slide dark" data-section="The rhythm" data-bed="market" data-level=".15">
+  <div class="frame">
+    <div class="kicker rv">A month at Yorozu</div>
+    <h2 class="h1 rv" style="--d:1;margin-top:14px">A feed that feels <span class="serif">rare, too.</span></h2>
+    <div class="cols" style="--n:3">
+      <div class="c rv" style="--d:2"><div class="k">Instagram · 9 posts</div><h4>Sparse by design</h4><p>Moving across the six territories, so no single story takes over. Facebook mirrors it.</p></div>
+      <div class="c rv" style="--d:2.4"><div class="k">Stories · 12</div><h4>The daily pace</h4><p>Before service, the day's arrivals, small moments from the counter and the kitchen.</p></div>
+      <div class="c rv" style="--d:2.8"><div class="k">TikTok · 6 originals</div><h4>Process and sound</h4><p>Native vertical edits of craft and source. Made for the format, never for a trend.</p></div>
+      <div class="c rv" style="--d:3.2"><div class="k">Community · 7 days</div><h4>Within four hours</h4><p>English and Arabic, written natively.</p></div>
+      <div class="c rv" style="--d:3.6"><div class="k">Design · 6 hours</div><h4>In the identity</h4><p>Announcements, menus, awards and press assets.</p></div>
+      <div class="c rv" style="--d:4"><div class="k">Reporting</div><h4>Monthly + quarterly</h4><p>Performance every month. A competitive review every quarter.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="slide dark" data-section="The rhythm" data-bed="brewery" data-level=".4">
+  <div class="frame">
+    <div class="split">
+      <div class="stack">
+        <div class="kicker rv">Production</div>
+        <h2 class="h1 rv" style="--d:1">Documentary <span class="serif">by design.</span></h2>
+        <ul class="list rv" style="--d:2">
+          <li><b>Full-day shoot</b><span>Every other month, up to 8 hours, each built around one territory.</span></li>
+          <li><b>Event shoot</b><span>One coverage a month for VIP and tastemaker dinners. Details and silhouettes, never a red carpet.</span></li>
+          <li><b>One quiet crew</b><span>Small, discreet, invisible to guests.</span></li>
+          <li><b>One grade</b><span>Matched to the Japan footage, so old and new material sit together.</span></li>
+          <li><b>A growing archive</b><span>Every shoot is filed and kept for the years ahead.</span></li>
+        </ul>
+      </div>
+      <div class="tall p45 kb rv" style="--d:1"><img data-src="assets/img/soy-maker.jpg" alt=""><span class="cap">Kyushu · archive</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ GROWTH ============ -->
+<section class="slide dark" data-section="Growth" data-bed="none" data-level="0">
+  <div class="frame">
+    <div class="split rev">
+      <div class="tall p45 kb rv"><img data-src="assets/img/sardines-bw.jpg" alt=""></div>
+      <div class="stack">
+        <div class="kicker rv">05 &nbsp;— &nbsp;Paid media</div>
+        <h2 class="h1 rv" style="--d:1">Paid media at <span class="serif">Yorozu's pace.</span></h2>
+        <ul class="list rv" style="--d:2">
+          <li><b>Meta</b><span>Build desire among the right UAE audiences — fine dining, travel, culture — and stay present for people who already care.</span></li>
+          <li><b>Google</b><span>Capture intent: brand, omakase and special-occasion searches. One step to reservations.</span></li>
+          <li><b>TikTok</b><span>Earn attention for craft and source. Never discounts.</span></li>
+        </ul>
+        <p class="small rv" style="--d:3">When demand outgrows twenty seats, we grow the wait — honestly, never artificially.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="slide paper" data-section="Growth" data-bed="none" data-level="0">
+  <div class="frame">
+    <div class="split">
+      <div class="stack narrow">
+        <div class="kicker rv">What we'll measure</div>
+        <h2 class="h1 rv" style="--d:1">KPIs that make sense <span class="serif">for twenty seats.</span></h2>
+        <p class="small rv" style="--d:2">Targets agreed together after a 30-day baseline. Honest numbers, reported honestly.</p>
+      </div>
+      <ul class="list rv" style="--d:2">
+        <li><b>Reservations</b><span>Occupancy by night and month. Cost per reservation.</span></li>
+        <li><b>Demand</b><span>Enquiries, branded search volume, and waitlist sign-ups when there is one.</span></li>
+        <li><b>Depth</b><span>Saves, shares and profile visits over likes and reach.</span></li>
+        <li><b>Credibility</b><span>Press and critic mentions, tracked with the PR agency.</span></li>
+        <li><b>Reporting</b><span>Monthly, with UAE fine-dining benchmarks. A competitive review every quarter.</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="slide vignette" data-section="Growth" data-bed="none" data-level="0">
+  <div class="bg kb-r text"><img data-src="assets/img/seaweed-dark.jpg" alt=""></div>
+  <div class="frame">
+    <div class="split">
+      <div class="stack">
+        <div class="kicker rv">Community management</div>
+        <h2 class="h1 rv" style="--d:1">Every reply is part <span class="serif">of the ritual.</span></h2>
+        <ul class="list rv" style="--d:2">
+          <li><b>Response</b><span>Within 4 hours, 7 days a week.</span></li>
+          <li><b>Language</b><span>English and Arabic, written natively.</span></li>
+          <li><b>Reservations</b><span>Booking questions routed to the team the same day.</span></li>
+          <li><b>Care</b><span>Complaints taken private, quickly and kindly.</span></li>
+          <li><b>Tone</b><span>Every answer sounds like Yorozu, never like a call centre.</span></li>
+        </ul>
+      </div>
+      <div class="hide-m"></div>
+    </div>
+  </div>
+</section>
+
+<section class="slide paper" data-section="Growth" data-bed="none" data-level="0">
+  <div class="frame">
+    <div class="split">
+      <div class="stack narrow">
+        <div class="kicker rv">Website</div>
+        <h2 class="h1 rv" style="--d:1">A website that <span class="serif">takes its time.</span></h2>
+        <p class="body rv" style="--d:2">One quiet, bilingual page: the story, the six territories, the archive, the question, and reservations. Fast, mobile-first, built in the identity.</p>
+      </div>
+      <div class="tall p45 kb rv" style="--d:1"><img data-src="assets/img/tank-6467.jpg" alt=""><span class="cap">Kyushu · archive</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="slide dark" data-section="Growth" data-bed="brewery" data-level=".5">
+  <div class="frame">
+    <div class="split rev">
+      <div class="tall p45 kb rv"><img data-src="assets/img/sake-tank.jpg" alt=""><span class="cap">Nagano · archive</span></div>
+      <div class="stack narrow">
+        <div class="kicker rv">The road to recognition</div>
+        <h2 class="h1 rv" style="--d:1">Juries and inspectors don't follow trends. <span class="serif">They follow consistency.</span></h2>
+        <p class="body rv" style="--d:2">Whoever looks Yorozu up — a 50 Best voter, an editor, an inspector, a future guest — should find the same restaurant they'd find at the counter. Every week, for years.</p>
+        <div class="tags rv" style="--d:3"><span class="tag">One calendar with PR</span><span class="tag">Awards entry assets</span><span class="tag">Press-ready archive</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="slide paper" data-section="Growth" data-bed="none" data-level="0">
+  <div class="frame">
+    <div class="kicker rv">How we work together</div>
+    <h2 class="h1 rv" style="--d:1;margin-top:14px">A small team. <span class="serif">Always the same faces.</span></h2>
+    <div class="cols" style="--n:4">
+      <div class="c rv" style="--d:2"><div class="k">Lead</div><h4>Creative Director</h4><p>Owns the idea, the voice and the standard.</p></div>
+      <div class="c rv" style="--d:2.3"><div class="k">Daily</div><h4>Account &amp; strategy lead</h4><p>Your single point of contact, aligned with PR.</p></div>
+      <div class="c rv" style="--d:2.6"><div class="k">On set</div><h4>Director of photography</h4><p>The documentary eye, every shoot.</p></div>
+      <div class="c rv" style="--d:2.9"><div class="k">Words</div><h4>Copywriters, EN &amp; AR</h4><p>Captions, community and Arabic written natively.</p></div>
+      <div class="c rv" style="--d:3.2"><div class="k">Community</div><h4>Community manager</h4><p>Seven days a week, within four hours.</p></div>
+      <div class="c rv" style="--d:3.5"><div class="k">Growth</div><h4>Paid media specialist</h4><p>Meta, Google and TikTok, always on.</p></div>
+      <div class="c rv" style="--d:3.8"><div class="k">Craft</div><h4>Designer &amp; editor</h4><p>Identity, motion and the Yorozu grade.</p></div>
+      <div class="c rv" style="--d:4.1"><div class="k">Rhythm</div><h4>Weekly · monthly · quarterly</h4><p>Check-in, content plan and report, strategic review.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ COMMERCIAL ============ -->
+<section class="slide paper" data-section="Commercial" data-bed="none" data-level="0">
+  <div class="frame">
+    <div class="split">
+      <div class="stack narrow">
+        <div class="kicker rv">06 &nbsp;— &nbsp;Commercial</div>
+        <h2 class="h1 rv" style="--d:1">One retainer. <span class="serif">Everything above.</span></h2>
+        <p class="body rv" style="--d:2">Strategy, creative direction, production, content, community and performance marketing. One team, one standard, every month.</p>
+        <hr class="rule rv gap-l" style="--d:3">
+        <p class="kicker rv" style="--d:3.5">Monthly retainer</p>
+        <p class="h0 rv" style="--d:4">AED 26,000</p>
+        <p class="small rv" style="--d:4.5">Per month. Media investment (ad spend) is quoted separately.</p>
+      </div>
+      <ul class="list rv" style="--d:2">
+        <li><b>Strategy</b><span>One social media strategy a year. Creative direction, ongoing.</span></li>
+        <li><b>Production</b><span>One photo and video shoot a month. One event coverage a month, video and photo.</span></li>
+        <li><b>Content</b><span>9 posts a month (6 reels, 3 static, carousel or animated) and 12 creative Stories.</span></li>
+        <li><b>Words</b><span>Captions in English and Arabic. Scheduling and posting.</span></li>
+        <li><b>Rhythm</b><span>Monthly calendar and report. Monthly production list and mood-board.</span></li>
+        <li><b>Performance</b><span>Paid media across Meta, TikTok and Google Search. Detailed on the next page.</span></li>
+        <li><b>Design</b><span>Graphic design support, up to 4 assets a month.</span></li>
+        <li><b>Community</b><span>Within 4 hours, 7 days a week.</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="slide dark" data-section="Commercial" data-bed="none" data-level="0">
+  <div class="frame">
+    <div class="kicker rv">Performance marketing</div>
+    <h2 class="h1 rv" style="--d:1;margin-top:14px">What the paid media scope <span class="serif">covers.</span></h2>
+    <div class="cols" style="--n:3">
+      <div class="c rv" style="--d:2"><div class="k">Meta · Instagram</div><h4>Up to 3 active campaigns</h4><p>Awareness, engagement, lead generation, traffic, retargeting and partnership ads.</p></div>
+      <div class="c rv" style="--d:2.4"><div class="k">TikTok</div><h4>Up to 2 active campaigns</h4><p>Spark Ads, video views, engagement, discovery, creator amplification and retargeting.</p></div>
+      <div class="c rv" style="--d:2.8"><div class="k">Google Search</div><h4>Up to 3 active campaigns</h4><p>Brand, generic search, event, reservation and group-booking campaigns, with search optimisation.</p></div>
+      <div class="c rv" style="--d:3.2"><div class="k">Strategy</div><h4>Paid, audience, channel, attribution</h4><p>Budget allocation and campaign planning in line with the marketing plan.</p></div>
+      <div class="c rv" style="--d:3.6"><div class="k">Optimisation</div><h4>Continuous</h4><p>Campaign setup, audience and budget optimisation, A/B testing and performance monitoring.</p></div>
+      <div class="c rv" style="--d:4"><div class="k">Reporting</div><h4>Monthly</h4><p>Campaign results, media performance, key learnings and optimisation recommendations.</p></div>
+    </div>
+    <p class="small rv" style="--d:4.5;margin-top:clamp(18px,2.4vw,36px)">Campaign restructuring, duplication, testing variations, ad sets and creative iterations required for optimisation within these campaigns are included and do not count as separate campaigns. Media investment (ad spend) is quoted separately.</p>
+  </div>
+</section>
+
+<!-- ============ CLOSE ============ -->
+<section class="slide vignette" data-section="Close" data-bed="sea" data-level="1" id="closing">
+  <div class="bg dimmer"><video data-src="assets/video/dawn-sea-loop.mp4" poster="assets/img/dawn-sea.jpg" muted loop playsinline></video></div>
+  <div class="frame center">
+    <div class="stack" style="display:flex;flex-direction:column;align-items:center">
+      <p class="lock rv" style="font-size:clamp(34px,5.4vw,92px);letter-spacing:.3em;padding-left:.3em">TIME IS RARE</p>
+      <p class="h1 serif rv" style="--d:1.5">Thank you for yours.</p>
+      <p class="kicker rv gap-l" style="--d:3" id="spent">&nbsp;</p>
+      <div class="links rv" style="--d:4" id="links"></div>
+      <p class="small rv gap-l" style="--d:5">A proposal by INHAUS for Yorozu, Abu Dhabi · Photography and film from Yorozu's journey through Japan</p>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<script>
+/* ---------- edit your links here ---------- */
+const LINKS = [
+  { label: 'INHAUS credentials', url: 'https://deck.inhaus.ae/' },
+  { label: 'Instagram', url: '' },   // e.g. https://www.instagram.com/your-handle/
+  { label: 'LinkedIn',  url: '' },   // e.g. https://www.linkedin.com/company/your-page/
+  { label: 'Website',   url: '' }
+];
+/* ------------------------------------------ */
+
+(function(){
+  const slides = [...document.querySelectorAll('.slide')];
+  const N = slides.length;
+  let cur = -1, step = 0, started = false, t0 = 0, lock = false;
+  const $ = id => document.getElementById(id);
+
+  // links
+  $('links').innerHTML = LINKS.filter(l => l.url).map(l =>
+    `<a href="${l.url}" target="_blank" rel="noopener">${l.label}</a>`).join('');
+
+  // ---------- media hydration ----------
+  function hydrate(i){
+    const s = slides[i]; if(!s || s.dataset.h) return;
+    s.querySelectorAll('[data-src]').forEach(el => { el.src = el.dataset.src; });
+    s.dataset.h = 1;
+  }
+  const REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function media(i, play){
+    const s = slides[i]; if(!s) return;
+    s.querySelectorAll('video').forEach(v => {
+      if(play && !REDUCED){ const p = v.play(); if(p) p.catch(()=>{}); } else { v.pause(); }
+    });
+  }
+
+  // ---------- audio ----------
+  const beds = {};
+  ['sea','market','brewery'].forEach(k => {
+    const a = new Audio('assets/audio/' + k + '.m4a');
+    a.loop = true; a.preload = 'auto'; a.volume = 0;
+    beds[k] = { el: a, target: 0 };
+  });
+  const MASTER = 0.47; // -15% (was 0.55)
+  let soundOn = false;
+  function setTargets(){
+    const s = slides[cur]; if(!s) return;
+    const bed = s.dataset.bed || 'none';
+    const lvl = parseFloat(s.dataset.level || '0');
+    Object.entries(beds).forEach(([k,b]) => { b.target = (soundOn && k === bed) ? MASTER * lvl : 0; });
+  }
+  function audioTick(){
+    Object.values(beds).forEach(b => {
+      const a = b.el, v = a.volume, d = b.target - v;
+      const nv = Math.abs(d) < .004 ? b.target : v + d * 0.035;
+      a.volume = Math.max(0, Math.min(1, nv));
+      if(a.volume > 0.001 && a.paused){ const p = a.play(); if(p) p.catch(()=>{}); }
+      if(a.volume <= 0.001 && b.target === 0 && !a.paused){ a.pause(); }
+    });
+    requestAnimationFrame(audioTick);
+  }
+  function setSound(on){
+    soundOn = on;
+    document.body.classList.toggle('sound-on', on);
+    $('soundLbl').textContent = on ? 'Sound on' : 'Sound off';
+    if(on){ Object.values(beds).forEach(b => { const p = b.el.play(); if(p) p.then(()=>{ if(b.target===0) b.el.pause(); }).catch(()=>{}); }); }
+    setTargets();
+  }
+  $('soundBtn').addEventListener('click', e => { e.stopPropagation(); setSound(!soundOn); });
+
+  // ---------- steps ----------
+  function stepsOf(s){ return [...s.querySelectorAll('.step')]; }
+  function applySteps(s, n){
+    const st = stepsOf(s);
+    st.forEach((el, i) => el.classList.toggle('shown', i < n));
+    // swap containers: only the latest shown item stays visible
+    s.querySelectorAll('.swap').forEach(sw => {
+      const items = [...sw.children];
+      let last = -1;
+      items.forEach((el, i) => { if(!el.classList.contains('step') || el.classList.contains('shown')) last = i; });
+      items.forEach((el, i) => {
+        if(el.classList.contains('step')) el.classList.toggle('past', i < last);
+        else el.style.opacity = (i < last) ? 0 : '';
+        if(!el.classList.contains('step')) el.style.transition = 'opacity 1s';
+      });
+    });
+    // background layers
+    // layers stack by index; every layer up to the current step stays visible underneath,
+    // the newest one dissolves in on top
+    const layers = [...s.querySelectorAll('.bg[data-at]')];
+    layers.forEach(l => {
+      l.style.zIndex = 1 + (+l.dataset.at);
+      const was = l.classList.contains('on'), now = +l.dataset.at <= n;
+      l.classList.toggle('on', now);
+      if(now && !was){ const img = l.querySelector('img'); if(img){ img.style.animation = 'none'; void img.offsetWidth; img.style.animation = ''; } }
+    });
+  }
+
+  // ---------- navigation ----------
+  function go(i, atEnd){
+    if(i < 0 || i >= N) return;
+    const prev = cur;
+    if(prev >= 0){
+      const ps = slides[prev];
+      ps.classList.remove('active'); ps.classList.add('leaving');
+      slides.forEach(o => { if(o !== ps && o !== slides[i]) o.classList.remove('leaving'); });
+      setTimeout(() => { if(!ps.classList.contains('active')) { ps.classList.remove('leaving'); media(prev, false); } }, 1700);
+    }
+    cur = i;
+    [i, i+1, i+2, i-1].forEach(hydrate);
+    const s = slides[i];
+    // restart ken burns
+    s.querySelectorAll('.bg img, .tall img').forEach(el => { el.style.animation = 'none'; void el.offsetWidth; el.style.animation = ''; });
+    s.querySelectorAll('.bg[data-at]').forEach(l => l.classList.remove('on'));
+    step = atEnd ? stepsOf(s).length : 0;
+    applySteps(s, step);
+    s.classList.add('active');
+    media(i, true);
+    $('section').textContent = s.dataset.section || '';
+    $('count').textContent = String(i+1).padStart(2,'0') + ' / ' + String(N).padStart(2,'0');
+    $('progress').style.width = ((i+1)/N*100) + '%';
+    if(history.replaceState) history.replaceState(null, '', '#' + (i+1));
+    setTargets();
+    if(s.id === 'closing') writeSpent();
+  }
+  function next(){
+    if(!started) return;
+    const s = slides[cur], st = stepsOf(s);
+    if(step < st.length){ step++; applySteps(s, step); return; }
+    go(cur + 1);
+  }
+  function prev(){
+    if(!started) return;
+    const s = slides[cur];
+    if(step > 0){ step--; applySteps(s, step); return; }
+    go(cur - 1, true);
+  }
+
+  document.addEventListener('keydown', e => {
+    if(e.metaKey || e.ctrlKey || e.altKey) return;
+    const k = e.key;
+    if(!started && (k === 'Enter' || k === ' ')){ e.preventDefault(); start(true); return; }
+    if(['ArrowRight','ArrowDown','PageDown',' ','Enter'].includes(k)){ e.preventDefault(); next(); }
+    else if(['ArrowLeft','ArrowUp','PageUp','Backspace'].includes(k)){ e.preventDefault(); prev(); }
+    else if(k === 'Home'){ go(0); }
+    else if(k === 'End'){ go(N-1); }
+    else if(k === 'f' || k === 'F'){ toggleFS(); }
+    else if(k === 'm' || k === 'M'){ setSound(!soundOn); }
+  });
+  let wheelAcc = 0;
+  window.addEventListener('wheel', e => {
+    if(!started) return;
+    e.preventDefault();
+    if(lock) return;
+    wheelAcc += e.deltaY;
+    if(Math.abs(wheelAcc) > 60){
+      wheelAcc > 0 ? next() : prev();
+      wheelAcc = 0; lock = true; setTimeout(() => lock = false, 950);
+    }
+  }, { passive:false });
+  let tx = null, ty = null;
+  window.addEventListener('touchstart', e => { tx = e.touches[0].clientX; ty = e.touches[0].clientY; }, { passive:true });
+  window.addEventListener('touchend', e => {
+    if(tx === null || !started) return;
+    const dx = e.changedTouches[0].clientX - tx, dy = e.changedTouches[0].clientY - ty;
+    const frame = e.target.closest('.frame');
+    const scrollable = frame && frame.scrollHeight > frame.clientHeight + 4;
+    if(Math.abs(dx) > 45 && Math.abs(dx) > Math.abs(dy)){ dx < 0 ? next() : prev(); }
+    else if(!scrollable && Math.abs(dy) > 60){ dy < 0 ? next() : prev(); }
+    tx = ty = null;
+  }, { passive:true });
+  document.getElementById('deck').addEventListener('click', e => {
+    if(e.target.closest('a,button')) return;
+    if(window.matchMedia('(pointer:coarse)').matches) return;
+    (e.clientX < window.innerWidth * 0.22) ? prev() : next();
+  });
+
+  function toggleFS(){
+    const d = document;
+    if(!d.fullscreenElement){ (d.documentElement.requestFullscreen || function(){}).call(d.documentElement); }
+    else { d.exitFullscreen && d.exitFullscreen(); }
+  }
+
+  // ---------- clock ----------
+  function fmt(ms){ const s = Math.floor(ms/1000); return String(Math.floor(s/60)).padStart(2,'0') + ':' + String(s%60).padStart(2,'0'); }
+  setInterval(() => { if(started) $('clock').textContent = fmt(Date.now() - t0); }, 1000);
+  function writeSpent(){
+    const ms = Date.now() - t0, m = Math.max(1, Math.round(ms/60000));
+    $('spent').textContent = 'You spent ' + (m === 1 ? 'one minute' : m + ' minutes') + ' with Yorozu today';
+  }
+
+  // ---------- start ----------
+  function start(withSound){
+    if(started) return;
+    started = true; t0 = Date.now();
+    $('gate').classList.add('gone');
+    setSound(withSound);
+    const h = parseInt((location.hash || '').slice(1), 10);
+    go(h >= 1 && h <= N ? h - 1 : 0);
+  }
+  $('enterSound').addEventListener('click', () => start(true));
+  $('enterSilent').addEventListener('click', () => start(false));
+
+  [0,1,2].forEach(hydrate);
+  requestAnimationFrame(audioTick);
+})();
+</script>
+</body>
+</html>
